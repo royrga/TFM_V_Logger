@@ -122,7 +122,7 @@ void MainWindow::cfg_Timers()
 
     //// Frequency operation protection timer
     releTime = new QTimer(this);
-    connect(timerT,SIGNAL(timeout()),this,SLOT(releTimefunc()));
+    connect(releTime,SIGNAL(timeout()),this,SLOT(releTimefunc()));
 }
 
 void MainWindow::readTemp()
@@ -142,7 +142,8 @@ void MainWindow::readTemp()
     logger->write(QString::number(t) + "\t" + QString::number(sample_temp[0])+ "\t" + QString::number(sample_temp[1])+ "\t" + QString::number(sample_temp[2]) +"\n");
     qDebug()<<"T1 = "<< sample_temp[0] << " T2 = " << sample_temp[1] << " T3 = " << sample_temp[2];
     average_sample_temps = (sample_temp[0] + sample_temp[1] + sample_temp[2])/3.0;
-    ui->lcd_resistance_temp->display((double)average_sample_temps);
+//    ui->lcd_resistance_temp->display((double)average_sample_temps);
+    ui->lcd_resistance_temp->display((double)sample_temp[0]);
 
 }
 
@@ -154,13 +155,13 @@ void MainWindow::clockfunc()
 void MainWindow::releTimefunc()
 {
     //Freq. operation 30 ops/min, 2 seconds delay between operations
-    if(sample_temp[0] >= set_point_temp)
+    if((float)sample_temp[0] >= set_point_temp)
     {
         //ui->pushButton_preHeat->setEnabled(false);
         gpioWrite(RESISTOR, RESISTOR_OFF); // Resistencia apagada
         gpioWrite(LED_RESISTOR, LED_RESISTOR_OFF);  // Indicador resistencia
     }
-    else if(sample_temp[0] < set_point_temp)  //TODO Buscar manera de usar menos releTime
+    else if((float)sample_temp[0] < set_point_temp)  //TODO Buscar manera de usar menos releTime
     {
         gpioWrite(RESISTOR, RESISTOR_ON); // Resistencia encendida
         gpioWrite(LED_RESISTOR, LED_RESISTOR_ON);  // Indicador resistencia
