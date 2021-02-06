@@ -174,11 +174,11 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../Desktop/Botones/On.png</normaloff>
-      <disabledoff>../Desktop/Botones/OnA.png</disabledoff>
-      <disabledon>../Desktop/Botones/OnA.png</disabledon>
-      <activeoff>../Desktop/Botones/On.png</activeoff>
-      <activeon>../Desktop/Botones/On.png</activeon>../Desktop/Botones/On.png</iconset>
+      <normaloff>Icons/Buttons/On.png</normaloff>
+      <disabledoff>Icons/Buttons/OnA.png</disabledoff>
+      <disabledon>Icons/Buttons/OnA.png</disabledon>
+      <activeoff>Icons/Buttons/On.png</activeoff>
+      <activeon>Icons/Buttons/On.png</activeon>Icons/Buttons/On.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -207,8 +207,8 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../Desktop/Botones/Vacuum.png</normaloff>
-      <normalon>../Desktop/Botones/VacuumA.png</normalon>../Desktop/Botones/Vacuum.png</iconset>
+      <normaloff>Icons/Buttons/Vacuum.png</normaloff>
+      <normalon>Icons/Buttons/VacuumA.png</normalon>Icons/Buttons/Vacuum.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -227,7 +227,7 @@
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>250</y>
+      <y>300</y>
       <width>71</width>
       <height>71</height>
      </rect>
@@ -237,10 +237,10 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../Desktop/Botones/Preheat.png</normaloff>
-      <normalon>../Desktop/Botones/Preheat.png</normalon>
-      <disabledoff>../Desktop/Botones/PreheatA2.png</disabledoff>
-      <disabledon>../Desktop/Botones/PreheatA2.png</disabledon>../Desktop/Botones/Preheat.png</iconset>
+      <normaloff>Icons/Buttons/Preheat.png</normaloff>
+      <normalon>Icons/Buttons/Preheat.png</normalon>
+      <disabledoff>Icons/Buttons/PreheatA2.png</disabledoff>
+      <disabledon>Icons/Buttons/PreheatA2.png</disabledon>Icons/Buttons/Preheat.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -269,7 +269,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../Desktop/Botones/StopA.png</normaloff>../Desktop/Botones/StopA.png</iconset>
+      <normaloff>Icons/Buttons/StopA.png</normaloff>Icons/Buttons/StopA.png</iconset>
     </property>
     <property name="iconSize">
      <size>
