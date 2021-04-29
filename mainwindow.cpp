@@ -33,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //TODO Crear funcion para inicializar variables
     data_init();
     cfg_Gpios_Coms();
     cfg_Timers();
@@ -82,16 +81,10 @@ void MainWindow::cfg_Gpios_Coms()
         {
             gpioTerminate();
             qDebug()<< "ERROR SPI CH" << i+1 <<" no  open";
-//            if( i==0 ){  } // TODO Show in UI if Sensor state is OK
-//            if( i==1 ){  }
-//            if( i==2 ){  }
         }
         else
         {
             qDebug()<< "SPI CH" << i+1 << "opened";
-//            if( i==0 ){  } // TODO Show in UI if Sensor state is OK
-//            if( i==1 ){  }
-//            if( i==2 ){  }
         }
 
     }
@@ -142,26 +135,25 @@ void MainWindow::readTemp()
     logger->write(QString::number(t) + "\t" + QString::number(sample_temp[0])+ "\t" + QString::number(sample_temp[1])+ "\t" + QString::number(sample_temp[2]) +"\n");
     qDebug()<<"T1 = "<< sample_temp[0] << " T2 = " << sample_temp[1] << " T3 = " << sample_temp[2];
     average_sample_temps = (sample_temp[0] + sample_temp[1] + sample_temp[2])/3.0;
-//    ui->lcd_resistance_temp->display((double)average_sample_temps);
     ui->lcd_resistance_temp->display((double)sample_temp[0]);
 
 }
 
 void MainWindow::clockfunc()
 {
-    // TODO Checar si se ocupa
+    //Funcion periodica en caso de ser necesaria
 }
 
 void MainWindow::releTimefunc()
 {
-    //Freq. operation 30 ops/min, 2 seconds delay between operations
+    // Funcion que determina el estado del relevador (abierto o cerrado) cada 2 segundos para
+    // evitar supera la frecuencia de operacion recomendada por el fabricante (30 ops/min)
     if((float)sample_temp[0] >= set_point_temp)
     {
-        //ui->pushButton_preHeat->setEnabled(false);
         gpioWrite(RESISTOR, RESISTOR_OFF); // Resistencia apagada
         gpioWrite(LED_RESISTOR, LED_RESISTOR_OFF);  // Indicador resistencia
     }
-    else if((float)sample_temp[0] < set_point_temp)  //TODO Buscar manera de usar menos releTime
+    else if((float)sample_temp[0] < set_point_temp)
     {
         gpioWrite(RESISTOR, RESISTOR_ON); // Resistencia encendida
         gpioWrite(LED_RESISTOR, LED_RESISTOR_ON);  // Indicador resistencia
@@ -180,11 +172,10 @@ void MainWindow::on_pushButton_on_clicked()
     ui->lcdnumber_SetPoint_temp->setDecMode();
     ui->lcdnumber_SetPoint_temp->setDigitCount(4);
     ui->lcdnumber_SetPoint_temp->display(set_point_temp);
-    timerT->start(300); // Start loop readTemp()
+    timerT->start(300);
     releTime->start(2000);
-    //ui->tabWidget->setEnabled(false);
     ui->pushButton_on->setDisabled(true);
-    ui->pushButton_preHeat->setEnabled(false);   // Only for Test
+    ui->pushButton_preHeat->setEnabled(false);   // Solo para pruebas
 
 
 }
@@ -202,24 +193,16 @@ void MainWindow::on_pushButton_vacuum_clicked(bool checked)
         gpioWrite(VACCUM,VACCUM_OFF); // Valvula de vaciado
         gpioWrite(LED_VACCUM,   LED_VACCUM_OFF);  // Indicador de vacio apagado
     }
-    //TODO Implementar timer para apagar en determinado tiempo
-//    gpioWrite(LED_RESISTOR, LED_RESISTOR_ON);  // Indicador resistencia
-//    gpioWrite(LED_VACCUM,   LED_VACCUM_ON);  // Indicador de vacio apagado
-//    gpioWrite(RESISTOR,     RESISTOR_ON); // Resistencia apagada
-//    gpioWrite(BOMB,         BOMB_ON); // Bomba apagada
 }
 
 void MainWindow::on_pushButton_Stop_clicked()
 {
     timerT->stop();
     releTime->stop();
-    //ui->tabWidget->setEnabled(true);
     ui->pushButton_on->setEnabled(true);
     ui->pushButton_preHeat->setEnabled(true);
     gpioWrite(LED_RESISTOR, LED_RESISTOR_OFF);  // Indicador resistencia
     gpioWrite(RESISTOR,     RESISTOR_OFF); // Resistencia apagada
-//    gpioWrite(BOMB,         BOMB_OFF); // Bomba apagada
-//    gpioWrite(VACCUM,       VACCUM_OFF); // Valvula de vaciado
 }
 
 void MainWindow::on_pushButton_TouchScreen_clicked()
